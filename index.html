@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            /*外边距*/
+            padding: 0;
+            /*内边距*/
+            width: 1000px;
+            min-width: 100vw;
+            height: 100vh;
+            /*高度*/
+            background-color: #ffffff;
+            /*背景颜色*/
+            font-family: sans-serif;
+            /*字体*/
+        }
+
+        .calendar {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            width: 800px;
+            height: 450px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 15px solid #fff;
+            /*边框*/
+            border-radius: 2px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .calendar .date {
+            width: 400px;
+            padding: 30px;
+            box-sizing: border-box;
+            /*盒子大小规则*/
+        }
+
+        .calendar .date h3 {
+            margin: 0 0 20px;
+            padding: 0;
+            height: 32px;
+            line-height: 32px;
+            font-size: 24px;
+            /*字体大小*/
+            font-weight: 500;
+            /*字体维度*/
+            text-align: center;
+            /*字体居中*/
+            user-select: none;
+            /*不可选中*/
+            text-transform: capitalize;
+            /*首字母大写*/
+        }
+
+        .calendar .date h4 {
+            margin: 0 0 20px;
+            padding: 0;
+            height: 32px;
+            line-height: 32px;
+            text-align: left;
+            color: orangered;
+            user-select: none;
+            /*不可选中*/
+            position: absolute;
+            top: 30px;
+            left: 46px;
+        }
+
+        .calendar .date .days {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .calendar .date .enter>div {
+            animation: enter 0.8s ease-out both;
+        }
+
+        @keyframes enter {
+            from {
+                opacity: 0;
+                transform: translateY(-20%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calendar .date .days .number.active {
+            background-color: #ff5252;
+            color: #fff !important;
+            cursor: pointer;
+            /*鼠标样式*/
+            border-radius: 50%;
+            /*边框圆角*/
+        }
+
+        .calendar .date .days .day,
+        .calendar .date .days .number {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .calendar .date .days .day:first-child,
+        .calendar .date .days .number:nth-child(7n+1) {
+            /*7个为一组，每组第一个*/
+            color: #f44336;
+            font-weight: 600;
+        }
+
+        .calendar .img {
+            position: relative;
+            /*定位*/
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100%;
+            background-color: #000;
+            user-select: none;
+        }
+
+        .calendar .img img {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /*元素内容如何适应屏幕*/
+        }
+
+        .jt {
+            width: 20px;
+            height: 32px;
+            line-height: 32px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 370px;
+        }
+
+        .jt>svg {
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .jt>svg:hover {
+            opacity: .5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calendar">
+        <div class="date">
+            <div class="jt left">
+                <svg t="1589382851636" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="7709">
+                    <path
+                        d="M226.350355 554.466274L643.440791 971.147397c23.023883 23.023883 60.373738 23.02388299 83.397622 0 23.126212-23.023883 23.126212-60.27141 0-83.295293l-375.238133-374.931148 375.238133-375.033477c23.126212-23.023883 23.126212-60.27141 0-83.295293-23.023883-23.023883-60.373738-23.02388299-83.397622 0L226.350355 471.17098C203.32647101 494.092535 203.326471 531.544719 226.350355 554.466274L226.350355 554.466274z"
+                        p-id="7710"></path>
+                </svg>
+            </div>
+            <h3></h3>
+            <h4></h4>
+            <div class="jt right">
+                <svg t="1589382786778" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="7574">
+                    <path
+                        d="M797.649645 469.533726L380.559209 52.852603c-23.023883-23.023883-60.373738-23.02388299-83.397622 0-23.126212 23.023883-23.126212 60.27141 0 83.295293l375.238133 374.931148-375.238133 375.033477c-23.126212 23.023883-23.126212 60.27141 0 83.295293 23.023883 23.023883 60.373738 23.02388299 83.397622 0L797.649645 552.82902C820.67352899 529.907465 820.673529 492.455281 797.649645 469.533726L797.649645 469.533726z"
+                        p-id="7575"></path>
+                </svg>
+            </div>
+            <div class="days">
+                <div class="day">日</div>
+                <div class="day">一</div>
+                <div class="day">二</div>
+                <div class="day">三</div>
+                <div class="day">四</div>
+                <div class="day">五</div>
+                <div class="day">六</div>
+            </div>
+        </div>
+        <div class="img">
+            <img src="https://s1.ax1x.com/2020/05/11/YJL3qJ.jpg" alt="Error">
+        </div>
+    </div>
+</body>
+<script>
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    // var months = [1,2,3,4,5,6,7,8,9,10,11,12]
+    var year = new Date().getFullYear()
+    var month = new Date().getMonth()
+    var mday = new Date().getDay()
+    var day = new Date().getDate()
+
+    var trueday = day   //真实的天数日期
+    var truefirstday = new Date(year, month, 1).getDay()  //真实月份的一号的星期
+
+    var yearel = document.querySelector('.calendar .date h4')
+    var monthel = document.querySelector('.calendar>div>h3')
+    var daybox = document.querySelector('.days')
+    var leftel = document.querySelector('.left')
+    var rightel = document.querySelector('.right')
+
+    for (var i = 0; i < 42; i++) {
+        daybox.appendChild(document.createElement("div"));
+    }
+
+    //闰年判断
+    var isLeapYear = (year) => {
+        return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0);
+    };
+    //每个月天数判断
+    var arr = [
+        31, null, 31, 30,
+        31, 30, 31, 31,
+        30, 31, 30, 31
+    ];
+
+    var val = 1; //用于判断是否是真实的年份与月份
+    function aa(year, month) {
+        yearel.textContent = year //在顶部显示年份
+        monthel.textContent = months[month]   //在顶部显示当前月份
+
+        if (isLeapYear == true) {
+            arr[1] = 29
+        } else {
+            arr[1] = 28
+        }
+
+        //获取每个月一号是星期几
+        var firstday = new Date(year, month, 1).getDay()
+
+        var divs = document.querySelectorAll('.days>div')
+
+        //清除前一个填入的数字
+        for (var i = 7; i < 49; i++) {
+            divs[i].textContent = ''
+        }
+        //为所有日期div添加数字
+        for (var i = firstday; i < arr[month] + firstday; i++) {
+            divs[i + 7].textContent = i - firstday + 1
+            divs[i + 7].classList.add('number')
+        }
+
+        for (var i = 0; i < firstday + 7; i++) {
+            divs[i + 7].classList.add('number')
+        }
+
+        //获取每个月一号是星期几
+        var firstday = new Date(year, month, 1).getDay()
+        //根据每个月天数来创建div
+        for (var i = 0; i < 42; i++) {
+            var numberBox = document.createElement("div")
+            daybox.appendChild(numberBox);
+        }
+
+        var divs = document.querySelectorAll('.days>div')
+
+        divs.forEach((el, i) => {
+            el.style.animationDelay = `${i * 0.02}s`;
+        })
+
+        //为所有日期div添加数字
+        for (var i = firstday; i < arr[month] + firstday; i++) {
+            divs[i + 7].textContent = i - firstday + 1
+            divs[i + 7].classList.add('number')
+        }
+
+        for (var i = 0; i < firstday + 7; i++) {
+            divs[i + 7].classList.add('number')
+        }
+
+        var dayel = document.querySelectorAll('.number')
+        if (val === 1) {
+            dayel[day + firstday - 1].classList.add('active')
+        } else {
+            dayel[trueday + truefirstday - 1].classList.remove('active')
+        }
+
+    }//函数结束
+    aa(year, month);
+
+    var d = new Date();
+    let dayEl = document.querySelector('.days')
+    leftel.onclick = function () {
+        dayEl.classList.remove('enter')
+        val += 1
+        month -= 1
+        if (month < 0) {
+            year -= 1
+            month = 11
+        }
+        aa(year, month)
+        setTimeout(() => dayEl.classList.add('enter'))
+    }
+    rightel.onclick = function () {
+        dayEl.classList.remove('enter')
+        val -= 1
+        month += 1
+        if (month > 11) {
+            year += 1
+            month = 0
+        }
+        aa(year, month)
+        setTimeout(() => dayEl.classList.add('enter'))
+    }
+
+</script>
+
+</html>
